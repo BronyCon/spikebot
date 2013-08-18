@@ -4,6 +4,7 @@
   "description": "Your number one assistant-bot",
   "dependencies": {
     "irc": "0.3.x",
-    "json-store": "0.0.x"
+    "json-store": "0.0.x",
+    "extend": "1.1.x"
   }
 }

@@ -1,4 +1,5 @@
 var util = require('util'),
+	extend = require('extend'),
 	Module = require('./module.js');
 
 var _authedUsers = {}; 
@@ -24,7 +25,7 @@ var userAuthModule = new Module({
 	'pm': [authenticateListener, checkAuth]
 });
 
-util._extend(userAuthModule, {
+extend(userAuthModule, {
 	load: function(name, config, bot) {
 		config.timeout = config.timeout || 86400;
 

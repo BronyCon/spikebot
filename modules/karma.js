@@ -1,4 +1,5 @@
 var util = require('util'),
+	extend = require('extend'),
 	Module = require('./module.js');
 
 var _getSubject = function(str) {
@@ -156,7 +157,7 @@ karmaModule.load = function(name, config, bot) {
 	}
 };
 
-util._extend(karmaModule, {
+extend(karmaModule, {
 	reset: function(subject, force) {
 		var created = force && !_karma[subject];
 		if(_karma[subject] || force) {

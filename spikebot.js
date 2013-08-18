@@ -1,6 +1,7 @@
 require('./polyfill.js');
 
 var util = require('util'),
+	extend = require('extend'),
 	IRC = require('irc'),
 	config = require('./config.js'),
 	modules = require('./modules.js');
@@ -29,7 +30,7 @@ bot.reply = function(nick, to, text) {
 };
 
 // adding module functionality to the bot
-util._extend(bot, modules);
+extend(bot, modules);
 console.log('Loading modules...');
 bot.loadModules();
 
