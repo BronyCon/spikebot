@@ -6,7 +6,7 @@ module.exports = {
 	realName: '',
 	debug: false,
 	stripColors: true,
-	sendErrors: 'dispatchrabbi'
+	sendErrors: 'dispatchrabbi',
 	channels: [],
 	modules: [
 		{
