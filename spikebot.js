@@ -29,6 +29,14 @@ bot.reply = function(nick, to, text) {
 	this.say(dest, text);
 };
 
+// errors should not crash the bot
+bot.addListener('error', function(message) {
+	console.log('Error: ', message);
+	if(this.config.sendErrors) {
+		this.say(this.config.sendErrors, 'Error: ' + message);
+	}
+});
+
 // adding module functionality to the bot
 extend(bot, modules);
 console.log('Loading modules...');
