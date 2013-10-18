@@ -37,6 +37,12 @@ module.exports = {
 			config: {
 				store: true
 			}
+		},
+		{
+			name: 'twitter',
+			config: {
+				store: false
+			}
 		}
 	]
 };
