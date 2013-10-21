@@ -1,9 +1,9 @@
 var util = require('util');
 
 var _modules = {},
-	_loadModule = function(moduleInfo, bot) {
+	_loadModule = function(moduleInfo, bot, reload) {
 		var name = moduleInfo.name,
-			path = moduleInfo.path || './modules/' + name + '.js',
+			path = moduleInfo.path || './modules/' + name + '.js';
 			mod = require(path);
 
 		// if this module is already loaded...
