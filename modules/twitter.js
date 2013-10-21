@@ -18,10 +18,10 @@ var twitterConfig = {
 
     if(tweetID) {
       this.twitter.showStatus(tweetID, function(error, data) {
-        var response = "@%s: \"%s\" at %s",
-          text = data.text.replace(/\r?\n/g, ' '),
-          createdAt = moment(data.created_at).format('llll');
         if(!error) {
+          var response = "@%s: \"%s\" at %s",
+            text = data.text.replace(/\r?\n/g, ' '),
+            createdAt = moment(data.created_at).format('llll');
           bot.reply(to, nick, util.format(response, data.user.screen_name, text, createdAt));
         }
       })
