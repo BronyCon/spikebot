@@ -45,4 +45,8 @@ twitterModule.load = function(name, config, bot) {
   })
 };
 
+twitterModule.help = function() {
+  return ["This module looks for twitter URLs in posts to channels and echoes the text of the corresponding tweet to the channel."];
+};
+
 module.exports = twitterModule;
