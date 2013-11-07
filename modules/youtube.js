@@ -57,7 +57,6 @@ var videoRegex = /(http(s)?:\/\/)?(www.)?youtube\.com\/watch\?v=(\w+)/,
     videoID = videoID && videoID.length ? videoID[videoID.length - 1] : 0;
 
     if(videoID) {
-    	// https://gdata.youtube.com/feeds/api/videos/KUNF5RsnGJM?v=2&alt=json
     	request('https://gdata.youtube.com/feeds/api/videos/' + videoID + '?v=2&alt=json', function(error, response, body) {
 	    	if (!error && response.statusCode == 200) {
 		    	var videoInfo = JSON.parse(body).entry;
