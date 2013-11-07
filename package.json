@@ -1,6 +1,6 @@
 {
   "name": "spikebot",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Your number one assistant-bot",
   "dependencies": {
     "irc": "0.3.x",
@@ -8,6 +8,7 @@
     "extend": "1.1.x",
     "util": "*",
     "moment": "*",
-    "ntwitter": "*"
+    "ntwitter": "*",
+    "request": "*"
   }
 }
