@@ -43,6 +43,12 @@ module.exports = {
 			config: {
 				store: false
 			}
+		},
+		{
+			name: 'youtube',
+			config: {
+				store: false
+			}
 		}
 	]
 };
