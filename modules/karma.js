@@ -1,5 +1,4 @@
-var util = require('util'),
-	extend = require('extend'),
+var extend = require('extend'),
 	Module = require('./module.js');
 
 var _getSubject = function(str) {
@@ -85,7 +84,7 @@ var karmaAdjustRegexp = /^(\([^)]+\)|[^ ]+)([+]{2}|[-]{2})(.*)?$/,
 
 		// parse the message
 		var subject = _getSubject(result[1]),
-			value = parseInt(result[2], 10)
+			value = parseInt(result[2], 10),
 			reason = _getReason(result[3], raw.nick);
 
 		this.set(subject, value, reason);
@@ -108,7 +107,7 @@ var karmaAdjustRegexp = /^(\([^)]+\)|[^ ]+)([+]{2}|[-]{2})(.*)?$/,
 			this.reset(subject);
 			this.bot.say(from, 'Karma for ' + subject + ' has been reset.');
 		} else {
-			this.bot.say(from, 'There is no karma record for ' + subject + '.')
+			this.bot.say(from, 'There is no karma record for ' + subject + '.');
 		}
 	},
 	listenForValue = function(nick, to, text) {
@@ -132,7 +131,7 @@ var karmaAdjustRegexp = /^(\([^)]+\)|[^ ]+)([+]{2}|[-]{2})(.*)?$/,
 		if(_karma[subject]) {
 			var limit = this.config.limit || 3;
 
-			this.bot.reply(nick, to, subject + ' has ' + _karma[subject].value + ' karma. The highest it\'s even been was ' + _karma[subject].highest + ' and the lowest it\'s ever been was ' + _karma[subject].lowest + '.');
+			this.bot.reply(nick, to, subject + ' has ' + _karma[subject].value + ' karma. The highest it\'s ever been was ' + _karma[subject].highest + ' and the lowest it\'s ever been was ' + _karma[subject].lowest + '.');
 			_karma[subject].positive.length && this.bot.reply(nick, to, 'Positive: ' + _selectReasons(_karma[subject].positive, limit).join('; '));
 			_karma[subject].negative.length && this.bot.reply(nick, to, 'Negative: ' + _selectReasons(_karma[subject].negative, limit).join('; '));
 			_karma[subject].set.length && this.bot.reply(nick, to, 'Set: ' + _selectReasons(_karma[subject].set, limit).join('; '));
@@ -144,11 +143,12 @@ var karmaAdjustRegexp = /^(\([^)]+\)|[^ ]+)([+]{2}|[-]{2})(.*)?$/,
 var _karma,
 	karmaModule = new Module({
 		pm: [listenForSet, listenForReset],
-		message: [listenForAdjust, listenForValue, listenForExplain]
+		message: [listenForValue, listenForExplain],
+		"message#": [listenForAdjust]
 	});
 
-karmaModule.load = function(name, config, bot) {
-	this.__proto__.load.apply(this, arguments);
+karmaModule.load = function() {
+	Object.getPrototypeOf(this).load.apply(this, arguments);
 
 	_karma = this.store.get('karma');
 	if(! _karma) {
@@ -176,7 +176,7 @@ extend(karmaModule, {
 	},
 	adjust: function(subject, amount, reason) {
 		// none of this adjusting by 0 stuff
-		if(amount == 0) {
+		if(amount === 0) {
 			return;
 		}
 
@@ -230,7 +230,8 @@ extend(karmaModule, {
 				'You can give a reason for the addition or deduction after the ++ or -- by prefacing the reason with # or //.',
 				'Examples include: cats++ #they are awesome | keyboard-- | (canadian healthcare)++ | (maryland government websites)-- //you are confusing',
 				'If you want to see how much karma something has, use !karma like this: !karma <subject>',
-				'More information about something\'s karma is available with !explain: !explain <subject>']
+				'More information about something\'s karma is available with !explain: !explain <subject>',
+				'Commands you must be authorized to use include !karma-set <subject> <value> and !karma-reset <subject>.'];
 	}
 });
 
