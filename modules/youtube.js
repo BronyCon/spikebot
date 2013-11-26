@@ -59,7 +59,7 @@ function pick() {
 	return null;
 }
 
-var videoRegex = /(?:http(?:s)?:\/\/)?(?:www.)?(?:youtube\.com\/(?:watch\?(?:.*)?v=([a-zA-Z0-9\-_]+)|v\/([a-zA-Z0-9\-_]+))|youtu.be\/([a-zA-Z0-9\-_]+))/i,
+var videoRegex = /(?:http(?:s)?:\/\/)?(?:www.)?(?:youtube\.com\/(?:watch\?(?:.*&)?v=([a-zA-Z0-9\-_]+)|v\/([a-zA-Z0-9\-_]+))|youtu.be\/([a-zA-Z0-9\-_]+))/i,
 	messageListener = function(to, nick, text, raw) {
     var videoID = videoRegex.exec(text),
       bot = this.bot;
