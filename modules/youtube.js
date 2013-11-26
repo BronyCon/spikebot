@@ -49,13 +49,29 @@ moment.duration.fn.format = function (input) {
     return output;
 }
 
-var videoRegex = /(http(s)?:\/\/)?(www.)?youtube\.com\/watch\?v=(\w+)/,
+function pick() {
+	for (var i = 0; i < arguments.length; i++) {
+		if (arguments[i]) {
+			return arguments[i];
+		}
+	}
+	
+	return null;
+}
+
+var videoRegex = /(?:http(?:s)?:\/\/)?(?:www.)?(?:youtube\.com\/(?:watch\?v=([a-zA-Z0-9\-_]+)|v\/([a-zA-Z0-9\-_]+))|youtu.be\/([a-zA-Z0-9\-_]+))/i,
 	messageListener = function(to, nick, text, raw) {
     var videoID = videoRegex.exec(text),
       bot = this.bot;
 
-    videoID = videoID && videoID.length ? videoID[videoID.length - 1] : 0;
-
+	if (videoID && videoID.length) {
+		videoID.shift();
+		videoID = pick.apply(videoID);
+	}
+	else {
+		videoID = 0;
+	}
+	
     if(videoID) {
     	request('https://gdata.youtube.com/feeds/api/videos/' + videoID + '?v=2&alt=json', function(error, response, body) {
 	    	if (!error && response.statusCode == 200) {
