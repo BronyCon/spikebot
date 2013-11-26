@@ -66,7 +66,7 @@ var videoRegex = /(?:http(?:s)?:\/\/)?(?:www.)?(?:youtube\.com\/(?:watch\?(?:.*&
 	
 	if (videoID && videoID.length) {
 		videoID.shift();
-		videoID = pick.apply(this, videoID);
+		videoID = pick.apply(null, videoID);
 	}
 	else {
 		videoID = 0;
