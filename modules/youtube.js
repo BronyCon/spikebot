@@ -1,7 +1,8 @@
 var Module = require('./module.js'),
 	request = require('request'),
 	util = require('util'),
-	moment = require('moment');
+	moment = require('moment'),
+	numeral = require('numeral');
 
 // This fix for displaying a duration from here: https://github.com/moment/moment/issues/463#issuecomment-16698903
 moment.duration.fn.format = function (input) {
@@ -94,6 +95,10 @@ var videoRegex = /(?:http(?:s)?:\/\/)?(?:www.)?(?:youtube\.com\/(?:watch\?(?:.*&
 						videoLikeCount = videoInfo['yt$rating'].numLikes;
 						videoDislikeCount = videoInfo['yt$rating'].numDislikes;
 					}
+					
+					videoViewCount = numeral(videoViewCount).format(',');
+					videoLikeCount = numeral(videoLikeCount).format(',');
+					videoDislikeCount = numeral(videoDislikeCount).format(',');
 		    	
 		    	bot.reply(to, nick, util.format(response, videoTitle, videoDuration, videoAuthor, videoPublishDate, videoViewCount, videoLikeCount, videoDislikeCount));
 	    	}
