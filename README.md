@@ -8,13 +8,13 @@ He doesn't have the best architecture, but he tries, you know?
 ## Installing SpikeBot
 Installing SpikeBot is pretty easy!
 
-1. Clone the repo.
+First, clone the repo.
 
 ```
 $ git clone https://github.com/BronyCon/spikebot.git
 ```
 
-2. Copy config.js.example to config.js and modify its settings.
+Then, copy config.js.example to config.js and modify its settings.
 
 ```
 $ cd spikebot
@@ -22,7 +22,7 @@ $ cp config.js.example config.js
 $ $EDITOR config.js
 ```
 
-3. Start spikebot.js!
+Then, start spikebot.js!
 
 ```
 $ node .
