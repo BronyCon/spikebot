@@ -1,7 +1,8 @@
 var Module = require('./module.js'),
 	request = require('request'),
 	util = require('util'),
-	moment = require('moment');
+	moment = require('moment'),
+	numeral = require('numeral');
 
 // This fix for displaying a duration from here: https://github.com/moment/moment/issues/463#issuecomment-16698903
 moment.duration.fn.format = function (input) {
@@ -77,21 +78,27 @@ var videoRegex = /(?:http(?:s)?:\/\/)?(?:www.)?(?:youtube\.com\/(?:watch\?(?:.*&
 	    	if (!error && response.statusCode == 200) {
 		    	var videoInfo = JSON.parse(body).entry;
 		    	
-/* 		    	console.log(JSON.stringify(videoInfo, null, 4)); */
-		    	
 		    	var response = '%s - %s | Posted by %s on %s | %s views, %s likes, %s dislikes',
 		    		videoTitle = videoInfo.title['$t'],
 					videoDuration = moment.duration(parseInt(videoInfo['media$group']['yt$duration'].seconds, 10), 'seconds').format('mm:ss'),
 					videoAuthor = videoInfo.author[0].name['$t'],
 					videoPublishDate = moment(videoInfo.published['$t']).format('dddd, MMMM Do YYYY, h:mm:ss a'),
-					videoViewCount = videoInfo['yt$statistics'].viewCount,
+					videoViewCount = 0,
 					videoLikeCount = 0,
 					videoDislikeCount = 0;
+					
+					if (videoInfo['yt$statistics']) {
+						videoViewCount = videoInfo['yt$statistics'].viewCount;
+					}
 					
 					if (videoInfo['yt$rating']) {
 						videoLikeCount = videoInfo['yt$rating'].numLikes;
 						videoDislikeCount = videoInfo['yt$rating'].numDislikes;
 					}
+					
+					videoViewCount = numeral(videoViewCount).format(',');
+					videoLikeCount = numeral(videoLikeCount).format(',');
+					videoDislikeCount = numeral(videoDislikeCount).format(',');
 		    	
 		    	bot.reply(to, nick, util.format(response, videoTitle, videoDuration, videoAuthor, videoPublishDate, videoViewCount, videoLikeCount, videoDislikeCount));
 	    	}
