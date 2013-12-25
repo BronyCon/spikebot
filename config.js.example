@@ -6,7 +6,7 @@ module.exports = {
 	realName: '',
 	debug: false,
 	stripColors: true,
-	sendErrors: 'dispatchrabbi',
+	sendErrors: '',
 	channels: [],
 	modules: [
 		{
@@ -23,7 +23,7 @@ module.exports = {
 			name: 'karma',
 			config: {
 				store: true,
-				limit: 3
+				explainReasons: 3
 			}
 		},
 		{
@@ -41,7 +41,11 @@ module.exports = {
 		{
 			name: 'twitter',
 			config: {
-				store: false
+				store: false,
+				consumer_key: '',
+				consumer_secret: '',
+				access_token_key: '',
+				access_token_secret: ''
 			}
 		},
 		{

@@ -3,13 +3,7 @@ var Module = require('./module.js'),
   util = require('util'),
   moment = require('moment');
 
-var twitterConfig = {
-    consumer_key: '',
-    consumer_secret: '',
-    access_token_key: '',
-    access_token_secret: ''
-  },
-  tweetRegex = /(http(s)?:\/\/)?(www.)?twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)/,
+var tweetRegex = /(http(s)?:\/\/)?(www.)?twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)/,
   messageListener = function(to, nick, text, raw) {
     var tweetID = tweetRegex.exec(text),
       bot = this.bot;
@@ -36,7 +30,12 @@ twitterModule.load = function(name, config, bot) {
   var self = this;
   this.__proto__.load.apply(this, arguments);
 
-  this.twitter = new TwitterAPI(twitterConfig);
+  this.twitter = new TwitterAPI({
+    consumer_key: this.config.consumer_key,
+    consumer_secret: this.config.consumer_secret,
+    access_token_key: this.config.access_token_key,
+    access_token_secret: this.config.access_token_secret
+  });
 
   this.twitter.verifyCredentials(function (error, data) {
     if(error) {
