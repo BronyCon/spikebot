@@ -129,7 +129,7 @@ var karmaAdjustRegexp = /^(\([^)]+\)|[^ ]+)([+]{2}|[-]{2})(.*)?$/,
 
 		var subject = _getSubject(text.substr('!explain '.length));
 		if(_karma[subject]) {
-			var limit = this.config.limit || 3;
+			var limit = this.config.explainReasons || 3;
 
 			this.bot.reply(nick, to, subject + ' has ' + _karma[subject].value + ' karma. The highest it\'s ever been was ' + _karma[subject].highest + ' and the lowest it\'s ever been was ' + _karma[subject].lowest + '.');
 			_karma[subject].positive.length && this.bot.reply(nick, to, 'Positive: ' + _selectReasons(_karma[subject].positive, limit).join('; '));

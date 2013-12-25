@@ -1,7 +1,8 @@
 {
   "name": "spikebot",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Your number one assistant-bot",
+  "main": "spikebot.js",
   "dependencies": {
     "irc": "0.3.x",
     "json-store": "0.0.x",
