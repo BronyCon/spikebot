@@ -5,7 +5,7 @@ var pmListener = function(from, text) {
 			var tokens = text.split(' ');
 			switch(tokens[0]) {
 				case '!join':
-					tokens[1].startsWith('#') && this.bot.join(tokens[1]);
+					tokens[1].startsWith('#') && this.bot.join(tokens[1] + (tokens.length > 2 ? ' ' + tokens[2] : ''));
 					break;
 				case '!part':
 					tokens[1].startsWith('#') && this.bot.part(tokens[1]);
