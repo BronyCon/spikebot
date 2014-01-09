@@ -74,11 +74,11 @@ var messageListener = function(to, nick, text, raw) {
 	}
 	
 	if(videoID) {
-		request('https://gdata.youtube.com/feeds/api/videos/' + videoID + '?v=2&alt=json', function(error, response, body) {
+		request('http://gdata.youtube.com/feeds/api/videos/' + videoID + '?v=2&alt=json', function(error, response, body) {
 			if (!error && response.statusCode == 200) {
 				var videoInfo = JSON.parse(body).entry,
-					duration = moment.duration(parseInt(videoInfo.media$group.yt$duration.seconds, 10), 'seconds').format('mm:ss'),
-					publishDate = moment(videoInfo.published.$t).format('dddd, MMMM Do YYYY, h:mm:ss a'),
+					duration = numeral(parseInt(videoInfo.media$group.yt$duration.seconds, 10)).format('00:00:00'),
+					publishDate = moment(videoInfo.published.$t).format('dddd, MMMM Do YYYY, h:mm a'),
 					views = (videoInfo.yt$statistics && videoInfo.yt$statistics.viewCount) || 0,
 					likes = (videoInfo.yt$rating && videoInfo.yt$rating.numLikes) || 0,
 					dislikes = (videoInfo.yt$rating && videoInfo.yt$rating.numDislikes) || 0;
