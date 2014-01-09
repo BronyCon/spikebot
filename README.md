@@ -28,6 +28,8 @@ Then, start spikebot.js!
 $ node .
 ```
 
+> You may find it more resilient to instead start SpikeBot using `$ cd .. ; nohup node spikebot &`.
+
 ## config.js
 There are a bunch of fields in config.js. Here are the ones you need to know and worry about:
 
