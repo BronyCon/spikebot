@@ -22,7 +22,7 @@ var tweetRegex = /(http(s)?:\/\/)?(www.)?twitter\.com\/(?:#!\/)?(\w+)\/status(es
             createdAt = moment(data.created_at).format('llll');
           
           data.entities.urls.forEach(function(urlInfo) {
-	        text = substrReplace(text, urlInfo.expanded_url, urlInfo.indices[0], urlInfo.indices[1]);
+            text = substrReplace(text, urlInfo.expanded_url, urlInfo.indices[0], urlInfo.indices[1]);
           });
           
           bot.reply(to, nick, util.format(response, data.user.screen_name, text, createdAt));
