@@ -3,6 +3,10 @@ var Module = require('./module.js'),
   util = require('util'),
   moment = require('moment');
 
+var substrReplace = function(str, replacement, start, end) {
+  return str.slice(0, start) + replacement + str.slice(end);
+};
+
 var tweetRegex = /(http(s)?:\/\/)?(www.)?twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)/,
   messageListener = function(to, nick, text, raw) {
     var tweetID = tweetRegex.exec(text),
@@ -16,6 +20,11 @@ var tweetRegex = /(http(s)?:\/\/)?(www.)?twitter\.com\/(?:#!\/)?(\w+)\/status(es
           var response = "@%s: \"%s\" at %s",
             text = data.text.replace(/\r?\n/g, ' '),
             createdAt = moment(data.created_at).format('llll');
+          
+          data.entities.urls.forEach(function(urlInfo) {
+	        text = substrReplace(text, urlInfo.expanded_url, urlInfo.indices[0], urlInfo.indices[1]);
+          });
+          
           bot.reply(to, nick, util.format(response, data.user.screen_name, text, createdAt));
         }
       })
